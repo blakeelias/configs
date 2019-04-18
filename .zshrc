@@ -23,7 +23,6 @@ alias vim="nvim"
 alias top="top -o%CPU"
 alias en="trans hu:en"
 alias hu="trans en:hu"
-alias grep="/usr/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
 
 # added by travis gem
@@ -46,5 +45,4 @@ mocha() {
 }
 
 # fzf
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

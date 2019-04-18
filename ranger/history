@@ -1,5 +1,3 @@
-tabe 
-! vim UiDevServer.js
 ! node %
 ! node %f
 ! PORT=8000 node %f
@@ -41,10 +39,12 @@ find Wi
 find Di
 ! grep console *
 rename bootstrap-material-design
-
 open_with vim
 search nodemon
 o vim
 ! ls
 open_with nvim
 d
+open_with ./
+open_with 
+
