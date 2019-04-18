@@ -1,5 +1,7 @@
 # Install Homebrew
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+# Add brew to path:
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # This is not pretty... should probably be refactored...
 # Awesome config
@@ -53,12 +55,11 @@ if [ -e $HOME/.nvm ]; then
 fi
 
 
-# Git stuff
-if [ -e $HOME/.gitconfig ]; then
-    echo "Config found at $HOME/.gitconfig; Skipping..."
-else
-    echo "[core.pager] 'diff-so-fancy | less --tabs=4 -RFX'" >> $HOME/.gitconfig
-fi
-
-
 brew install diff-so-fancy
+
+# Git stuff
+git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+git config --global push.default "current"
+git config --global alias.co "checkout"
+git config --global alias.ci "commit"
+git config --global alias.st "status"
