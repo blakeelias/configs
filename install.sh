@@ -1,3 +1,6 @@
+# Install Homebrew
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+
 # This is not pretty... should probably be refactored...
 # Awesome config
 if [ -e $HOME/.config/awesome ]; then
@@ -13,12 +16,14 @@ else
     ln -s $(pwd)/ranger $HOME/.config/ranger
 fi
 
-# Vim config
-if [ -e $HOME/.vimrc ]; then
-    echo "Vim config found at $HOME/.vimrc. Skipping..."
+# neovim config
+if [ -e $HOME/.config/nvim/init.vim ]; then
+    echo "neovim config found. Skipping..."
 else
-    git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-    ln -s $(pwd)/.vimrc $HOME/.vimrc
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    mkdir -p $HOME/.config/nvim/ 2> /dev/null
+    ln -s $(pwd)/init.vim $HOME/.config/nvim/init.vim
 fi
 
 # X stuff
@@ -34,3 +39,26 @@ else
     ln -s $(pwd)/.Xresources $HOME/.Xresources
 fi
 
+if [ -e $HOME/.zshrc ]; then
+    echo "Config found at $HOME/.zshrc Skipping..."
+else
+    mkdir ~/.antigen 
+    curl -L git.io/antigen > ~/.antigen/antigen.zsh
+    ln -s $(pwd)/.zshrc $HOME/.zshrc
+fi
+
+if [ -e $HOME/.nvm ]; then
+    echo "Installing nvm (for nodejs support)"
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+fi
+
+
+# Git stuff
+if [ -e $HOME/.gitconfig ]; then
+    echo "Config found at $HOME/.gitconfig; Skipping..."
+else
+    echo "[core.pager] 'diff-so-fancy | less --tabs=4 -RFX'" >> $HOME/.gitconfig
+fi
+
+
+brew install diff-so-fancy
